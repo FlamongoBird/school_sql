@@ -14,14 +14,14 @@ CREATE TABLE ZipCodes
     ZipCode CHAR(10),
     City VARCHAR,
     StateAbbr CHAR(2),
-    CONSTRAINT pk_ZipCodes PRIMARY KEY ZipCode
+    CONSTRAINT pk_ZipCodes PRIMARY KEY (ZipCode)
 )
 
 CREATE TABLE Campuses
 (
     CampusID INT,
     CampusName VARCHAR,
-    CONSTRAINT pk_Campuses PRIMARY KEY CampusID
+    CONSTRAINT pk_Campuses PRIMARY KEY (CampusID)
 )
 
 CREATE TABLE Courses
@@ -30,7 +30,7 @@ CREATE TABLE Courses
     CoursePrefix VARCHAR,
     CourseNumber SMALLINT,
     CourseName VARCHAR,
-    CONSTRAINT pk_Courses PRIMARY KEY CourseID
+    CONSTRAINT pk_Courses PRIMARY KEY (CourseID)
 )
 
 CREATE TABLE Buildings
@@ -40,7 +40,7 @@ CREATE TABLE Buildings
     BuildingName VARCHAR,
     CampusID INT NOT NULL,
     ZipCode CHAR(10) NOT NULL,
-    CONSTRAINT pk_Buildings PRIMARY KEY BuildingID,
+    CONSTRAINT pk_Buildings PRIMARY KEY (BuildingID),
     CONSTRAINT fk_ZipCode_Buildings FOREIGN KEY ZipCode REFERENCES ZipCodes,
     CONSTRAINT fk_CampusID_Buildings FOREIGN KEY CampusID REFERENCES, Campuses
 )
@@ -73,7 +73,7 @@ CREATE TABLE Faculty
     ZipCode CHAR(10) NOT NULL,
     OfficeNumber SMALLINT,
     BuildingID INT,
-    CONSTRAINT pk_Faculty PRIMARY KEY FacultyID,
+    CONSTRAINT pk_Faculty PRIMARY KEY (FacultyID),
     CONSTRAINT fk_ZipCode_Faculty FOREIGN KEY ZipCode REFERENCES ZipCodes,
     CONSTRAINT fk_FacultyOffices_Faculty FOREIGN KEY (OfficeNumber, BuildingID) REFERENCES FacultyOffices
 )
@@ -89,7 +89,7 @@ CREATE TABLE Students
     ZipCode CHAR(10) NOT NULL,
     MentorID INT,
     FacultyID INT NOT NULL,
-    CONSTRAINT pk_Students PRIMARY KEY StudentID,
+    CONSTRAINT pk_Students PRIMARY KEY (StudentID),
     CONSTRAINT fk_ZipCode_Students FOREIGN KEY ZipCode REFERENCES ZipCodes,
     CONSTRAINT fk_FacultyID_Students FOREIGN KEY FacultyID REFERENCES FacultyID
 )
@@ -101,7 +101,7 @@ CREATE TABLE Enroll
     StartDate DATE,
     EndDate DATE,
     Grade VARCHAR(2),
-    CONSTRAINT pk_Enroll PRIMARY KEY StudentID
+    CONSTRAINT pk_Enroll PRIMARY KEY (StudentID)
 )
 
 CREATE TABLE Sections
@@ -114,7 +114,7 @@ CREATE TABLE Sections
     RoomNumber SMALLINT NOT NULL,
     BuildingID INT NOT NULL,
     FacultyID INT NOT NULL,
-    CONSTRAINT pk_Sections PRIMARY KEY SectionID,
+    CONSTRAINT pk_Sections PRIMARY KEY (SectionID),
     CONSTRAINT fk_CourseID_Sections FOREIGN KEY CourseID REFERENCES Courses,
     CONSTRAINT fk_ClassRooms_Sections FOREIGN KEY (RoomNumber, BuildingID) REFERENCES ClassRooms,
     CONSTRAINT fk_FacultyID_Sections FOREIGN KEY FacultyID REFERENCES Faculty
